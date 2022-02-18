@@ -20,9 +20,10 @@ class WebTestClientExampleApplicationTests {
 	public void testGetBranches() {
 		webTestClient
 				.get()
-				.uri("https://github.com/mucheniski")
+				.uri("https://api.sulamericaseguros.com.br/open-insurance/channels/v1/branches")
 				.exchange()
-				.expectStatus().isOk();
+				.expectStatus().isOk()
+		;
 	}
 
 }
