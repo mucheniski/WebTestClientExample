@@ -1,13 +1,28 @@
 package com.example.WebTestClientExample;
 
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.reactive.server.WebTestClient;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class WebTestClientExampleApplicationTests {
 
+	@Autowired
+	private WebTestClient webTestClient;
+
 	@Test
-	void contextLoads() {
+	@Order(1)
+	public void testGetBranches() {
+		webTestClient
+				.get()
+				.uri("https://github.com/mucheniski")
+				.exchange()
+				.expectStatus().isOk();
 	}
 
 }
